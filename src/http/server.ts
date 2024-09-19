@@ -1,5 +1,6 @@
 import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from 'http';
+import { env } from '../env';
 
 const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({ logger: true });
 
@@ -27,7 +28,7 @@ server.get('/ping', opts, async (request, reply) => {
 
 const start = async () => {
     try {
-        await server.listen({port: 3000});
+        await server.listen({port: env.PORT, host: env.HOST});
         const address = server.server.address();
         const port = typeof address === 'string' ? address : address?.port;
         server.log.info(`server listening on ${port}`);
