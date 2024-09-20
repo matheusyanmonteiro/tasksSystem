@@ -1,30 +1,11 @@
-import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify';
+import Fastify, { FastifyInstance } from 'fastify';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 import { env } from '../env';
+import { ping } from './routes';
 
-const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({ logger: true });
+export const server: FastifyInstance<Server, IncomingMessage, ServerResponse> = Fastify({ logger: true });
 
-
-const opts: RouteShorthandOptions = {
-    schema: {
-        response: {
-            200: {
-                type: 'object',
-                properties: {
-                    pong: {
-                        type: 'string'
-                    }
-                }
-            }
-        }
-    }
-};
-
-
-server.get('/ping', opts, async (request, reply) => {
-    return ({ pong: 'it worked!' });
-})
-
+server.register(ping);
 
 const start = async () => {
     try {
