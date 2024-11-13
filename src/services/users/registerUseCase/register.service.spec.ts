@@ -18,7 +18,11 @@ describe('Register User', () => {
             email: 'johndoe@email.com',
             password:'123456',})
 
+            console.log(user)
+
         expect(user.id).toEqual(expect.any(String));
         expect(user.name).toEqual('John Doe');
     })
 })
+
+// osdfjsai 
